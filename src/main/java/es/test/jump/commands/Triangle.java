@@ -8,22 +8,29 @@ public class Triangle extends Shape{
     private Double x3;
     private Double y3;
 
-    public Triangle(String[] arguments) {
-        if (checkRequirements(arguments)) {
-            this.x1 = Double.parseDouble(arguments[0]);
-            this.y1 = Double.parseDouble(arguments[1]);
-            this.x2 = Double.parseDouble(arguments[2]);
-            this.y2 = Double.parseDouble(arguments[3]);
-            this.x3 = Double.parseDouble(arguments[4]);
-            this.y3 = Double.parseDouble(arguments[5]);
-        }
+    public Triangle(String[] arguments) throws Exception{
+        checkRequirements(arguments);
+        this.x1 = Double.parseDouble(arguments[0]);
+        this.y1 = Double.parseDouble(arguments[1]);
+        this.x2 = Double.parseDouble(arguments[2]);
+        this.y2 = Double.parseDouble(arguments[3]);
+        this.x3 = Double.parseDouble(arguments[4]);
+        this.y3 = Double.parseDouble(arguments[5]);
     }
 
     @Override
-    boolean checkRequirements(String[] arguments) {
-        if ((arguments.length != 6))
-            return false;
-        return true;
+    void checkRequirements(String[] arguments) throws Exception{
+        if (arguments.length != 6)
+            throw new Exception("Triangle wrong number of arguments. It must be 6");
+        for(int i=0;i<6;i++){
+            if (arguments[i].isEmpty())
+                throw new Exception("Triangle one argument is empty");
+            try {
+                Double.parseDouble(arguments[i]);
+            }catch(NumberFormatException e){
+                throw new Exception("Triangle one argument is not double");
+            }
+        }
     }
 
     @Override

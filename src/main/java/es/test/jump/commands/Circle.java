@@ -5,19 +5,28 @@ public class Circle extends Shape{
     private Double y;
     private Double radius;
 
-    public Circle(String[] arguments) {
-        if (checkRequirements(arguments)) {
-            this.x = Double.parseDouble(arguments[0]);
-            this.y = Double.parseDouble(arguments[1]);
-            this.radius = Double.parseDouble(arguments[2]);
-        }
+    public Circle(String[] arguments) throws Exception {
+        checkRequirements(arguments);
+        this.x = Double.parseDouble(arguments[0]);
+        this.y = Double.parseDouble(arguments[1]);
+        this.radius = Double.parseDouble(arguments[2]);
     }
 
     @Override
-    boolean checkRequirements(String[] arguments) {
-        if ((arguments.length != 3) || (Double.parseDouble(arguments[2]) < 0))
-            return false;
-        return true;
+    void checkRequirements(String[] arguments) throws Exception {
+        if (arguments.length != 3)
+            throw new Exception("Circle wrong number of arguments. It must be 3");
+        for(int i=0;i<3;i++){
+            if (arguments[i].isEmpty())
+                throw new Exception("Circle one argument is empty");
+            try {
+                Double.parseDouble(arguments[i]);
+            }catch(NumberFormatException e){
+                throw new Exception("Circle one argument is not double");
+            }
+        }
+        if (Double.parseDouble(arguments[2]) < 0)
+            throw new Exception("Circle radius is negative");
     }
 
     @Override

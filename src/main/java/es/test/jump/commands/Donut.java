@@ -6,20 +6,33 @@ public class Donut extends Shape{
     private Double radiusMin;
     private Double radiusMax;
 
-    public Donut(String[] arguments) {
-        if (checkRequirements(arguments)) {
-            this.x = Double.parseDouble(arguments[0]);
-            this.y = Double.parseDouble(arguments[1]);
-            this.radiusMin = Double.parseDouble(arguments[2]);
-            this.radiusMax = Double.parseDouble(arguments[3]);
-        }
+    public Donut(String[] arguments) throws Exception {
+        checkRequirements(arguments);
+        this.x = Double.parseDouble(arguments[0]);
+        this.y = Double.parseDouble(arguments[1]);
+        this.radiusMin = Double.parseDouble(arguments[2]);
+        this.radiusMax = Double.parseDouble(arguments[3]);
     }
 
     @Override
-    boolean checkRequirements(String[] arguments) {
-        if ((arguments.length != 4) || (Double.parseDouble(arguments[2]) < 0) || (Double.parseDouble(arguments[3]) < 0) || (Double.parseDouble(arguments[2]) > Double.parseDouble(arguments[3])))
-            return false;
-        return true;
+    void checkRequirements(String[] arguments) throws Exception {
+        if (arguments.length != 4)
+            throw new Exception("Donut wrong number of arguments. It must be 4");
+        for(int i=0;i<4;i++){
+            if (arguments[i].isEmpty())
+                throw new Exception("Donut one argument is empty");
+            try {
+                Double.parseDouble(arguments[i]);
+            }catch(NumberFormatException e){
+                throw new Exception("Donut one argument is not double");
+            }
+        }
+        if (Double.parseDouble(arguments[2]) < 0)
+            throw new Exception("Donut radiusMin negative");
+        if (Double.parseDouble(arguments[3]) < 0)
+            throw new Exception("Donut radiusMax negative");
+        if (Double.parseDouble(arguments[2]) > Double.parseDouble(arguments[3]))
+            throw new Exception("Donut radiusMax smaller than radiusMin");
     }
 
     @Override

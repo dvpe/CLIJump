@@ -25,7 +25,12 @@ public class TranslationCommands implements CommandMarker{
         // Check args, etc.
         if (text != null) {
             argument = parserOptions(text);
-             Circle circle = new Circle(argument);
+             Circle circle;
+             try {
+                 circle = new Circle(argument);
+             }catch(Exception e){
+                 return e.getMessage();
+             }
              shapes.add(circle);
              return circle.toString(shapes.size());
         }
@@ -38,7 +43,12 @@ public class TranslationCommands implements CommandMarker{
         // Check args, etc.
         if (text != null) {
             argument = parserOptions(text);
-            Rectangle rectangle = new Rectangle(argument);
+            Rectangle rectangle;
+            try {
+                rectangle = new Rectangle(argument);
+            }catch(Exception e){
+                return e.getMessage();
+            }
             shapes.add(rectangle);
             return rectangle.toString(shapes.size());
         }
@@ -51,7 +61,12 @@ public class TranslationCommands implements CommandMarker{
         // Check args, etc.
         if (text != null) {
             argument = parserOptions(text);
-            Square square = new Square(argument);
+            Square square;
+            try {
+                square = new Square(argument);
+            }catch(Exception e){
+                return e.getMessage();
+            }
             shapes.add(square);
             return square.toString(shapes.size());
         }
@@ -64,9 +79,32 @@ public class TranslationCommands implements CommandMarker{
         // Check args, etc.
         if (text != null) {
             argument = parserOptions(text);
-            Donut donut = new Donut(argument);
+            Donut donut;
+            try {
+                donut = new Donut(argument);
+            }catch(Exception e){
+                return e.getMessage();
+            }
             shapes.add(donut);
             return donut.toString(shapes.size());
+        }
+        return "error";
+    }
+
+    @CliCommand(value = "triangle", help = "add triangle shape")
+    public String triangle(@CliOption(key = {"", "text"}) String text) {
+        String[] argument;
+        // Check args, etc.
+        if (text != null) {
+            argument = parserOptions(text);
+            Triangle triangle;
+            try {
+                triangle = new Triangle(argument);
+            }catch(Exception e){
+                return e.getMessage();
+            }
+            shapes.add(triangle);
+            return triangle.toString(shapes.size());
         }
         return "error";
     }

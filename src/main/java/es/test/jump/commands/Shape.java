@@ -4,6 +4,6 @@ public abstract class Shape {
     public String toString(int pos) {
         return "=> shape " + pos + ": ";
     }
-    abstract boolean checkRequirements(String[] arguments);
+    abstract void checkRequirements(String[] arguments)  throws Exception;
     abstract public boolean pointIsInside(double x, double y);
 }
